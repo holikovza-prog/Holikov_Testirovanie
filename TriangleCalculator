@@ -1,0 +1,225 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace TriangleCalculator
+{
+    public class TriangleResult
+    {
+        public string Type { get; set; }
+        public List<(int X, int Y)> Coordinates { get; set; }
+    }
+
+    public class TriangleService
+    {
+        private readonly string _logFilePath;
+        
+        public TriangleService(string logFilePath = "triangle_log.txt")
+        {
+            _logFilePath = logFilePath;
+        }
+        
+        public TriangleResult CalculateTriangle(string sideAStr, string sideBStr, string sideCStr)
+        {
+            // Проверка на нечисловые данные
+            if (!float.TryParse(sideAStr, out float sideA) ||
+                !float.TryParse(sideBStr, out float sideB) ||
+                !float.TryParse(sideCStr, out float sideC))
+            {
+                LogInvalidRequest(sideAStr, sideBStr, sideCStr, "Нечисловые входные данные");
+                return new TriangleResult
+                {
+                    Type = "",
+                    Coordinates = new List<(int X, int Y)> { (-2, -2), (-2, -2), (-2, -2) }
+                };
+            }
+            
+            // Проверка на положительные числа
+            if (sideA <= 0 || sideB <= 0 || sideC <= 0)
+            {
+                LogInvalidRequest(sideAStr, sideBStr, sideCStr, "Стороны должны быть положительными числами");
+                return new TriangleResult
+                {
+                    Type = "не треугольник",
+                    Coordinates = new List<(int X, int Y)> { (-1, -1), (-1, -1), (-1, -1) }
+                };
+            }
+            
+            // Проверка на неравенство треугольника
+            if (sideA + sideB <= sideC || sideA + sideC <= sideB || sideB + sideC <= sideA)
+            {
+                LogInvalidRequest(sideAStr, sideBStr, sideCStr, "Неравенство треугольника не выполняется");
+                return new TriangleResult
+                {
+                    Type = "не треугольник",
+                    Coordinates = new List<(int X, int Y)> { (-1, -1), (-1, -1), (-1, -1) }
+                };
+            }
+            
+            // Определение типа треугольника
+            string triangleType = DetermineTriangleType(sideA, sideB, sideC);
+            
+            // Вычисление координат
+            var coordinates = CalculateCoordinates(sideA, sideB, sideC);
+            
+            // Логирование успешного запроса
+            LogSuccessfulRequest(sideAStr, sideBStr, sideCStr, triangleType, coordinates);
+            
+            return new TriangleResult
+            {
+                Type = triangleType,
+                Coordinates = coordinates
+            };
+        }
+        
+        private string DetermineTriangleType(float a, float b, float c)
+        {
+            const float epsilon = 0.0001f;
+            
+            if (Math.Abs(a - b) < epsilon && Math.Abs(b - c) < epsilon)
+                return "равносторонний";
+            
+            if (Math.Abs(a - b) < epsilon || Math.Abs(a - c) < epsilon || Math.Abs(b - c) < epsilon)
+                return "равнобедренный";
+            
+            return "разносторонний";
+        }
+        
+        private List<(int X, int Y)> CalculateCoordinates(float a, float b, float c)
+        {
+            // Размещаем треугольник в поле 100x100 px
+            // Вершина A в начале координат (0, 0) но с отступом для отображения
+            // Преобразуем в int для координат пикселей
+            
+            // Вершина A (0, 0)
+            int ax = 10;
+            int ay = 90;
+            
+            // Вершина B на оси X (длина стороны AB = c)
+            int bx = ax + (int)Math.Round(c);
+            int by = ay;
+            
+            // Вершина C вычисляем по теореме косинусов
+            // Сторона AC = b, сторона BC = a
+            // Вычисляем высоту и смещение по X
+            float angleA = (float)Math.Acos((b * b + c * c - a * a) / (2 * b * c));
+            float cx = ax + (int)Math.Round(b * Math.Cos(angleA));
+            float cy = ay - (int)Math.Round(b * Math.Sin(angleA));
+            
+            // Масштабируем, чтобы треугольник помещался в поле 100x100
+            float minX = Math.Min(ax, Math.Min(bx, cx));
+            float maxX = Math.Max(ax, Math.Max(bx, cx));
+            float minY = Math.Min(ay, Math.Min(by, cy));
+            float maxY = Math.Max(ay, Math.Max(by, cy));
+            
+            // Добавляем отступы
+            float padding = 5;
+            float scaleX = (100 - 2 * padding) / (maxX - minX);
+            float scaleY = (100 - 2 * padding) / (maxY - minY);
+            float scale = Math.Min(scaleX, scaleY);
+            
+            // Если треугольник вырожденный или слишком маленький
+            if (float.IsNaN(scale) || float.IsInfinity(scale) || scale <= 0)
+                scale = 1;
+            
+            // Применяем масштабирование и сдвиг
+            int axScaled = (int)Math.Round(padding + (ax - minX) * scale);
+            int ayScaled = (int)Math.Round(padding + (ay - minY) * scale);
+            int bxScaled = (int)Math.Round(padding + (bx - minX) * scale);
+            int byScaled = (int)Math.Round(padding + (by - minY) * scale);
+            int cxScaled = (int)Math.Round(padding + (cx - minX) * scale);
+            int cyScaled = (int)Math.Round(padding + (cy - minY) * scale);
+            
+            // Ограничиваем значения в пределах 0-100
+            axScaled = Math.Clamp(axScaled, 0, 100);
+            ayScaled = Math.Clamp(ayScaled, 0, 100);
+            bxScaled = Math.Clamp(bxScaled, 0, 100);
+            byScaled = Math.Clamp(byScaled, 0, 100);
+            cxScaled = Math.Clamp(cxScaled, 0, 100);
+            cyScaled = Math.Clamp(cyScaled, 0, 100);
+            
+            return new List<(int X, int Y)>
+            {
+                (axScaled, ayScaled),
+                (bxScaled, byScaled),
+                (cxScaled, cyScaled)
+            };
+        }
+        
+        private void LogSuccessfulRequest(string sideA, string sideB, string sideC, 
+                                          string triangleType, List<(int X, int Y)> coordinates)
+        {
+            string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] УСПЕШНЫЙ ЗАПРОС\n" +
+                               $"Параметры: a={sideA}, b={sideB}, c={sideC}\n" +
+                               $"Результат: тип={triangleType}, координаты={string.Join(", ", coordinates)}\n" +
+                               $"{new string('-', 50)}\n";
+            
+            LogToFileAndConsole(logMessage);
+        }
+        
+        private void LogInvalidRequest(string sideA, string sideB, string sideC, string errorMessage)
+        {
+            string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] НЕУСПЕШНЫЙ ЗАПРОС\n" +
+                               $"Параметры: a={sideA}, b={sideB}, c={sideC}\n" +
+                               $"Ошибка: {errorMessage}\n" +
+                               $"{new string('-', 50)}\n";
+            
+            LogToFileAndConsole(logMessage);
+        }
+        
+        private void LogToFileAndConsole(string message)
+        {
+            // Вывод в консоль
+            Console.Write(message);
+            
+            // Запись в файл
+            try
+            {
+                File.AppendAllText(_logFilePath, message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при записи в файл лога: {ex.Message}");
+            }
+        }
+    }
+    
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var triangleService = new TriangleService("triangle_log.txt");
+            
+            Console.WriteLine("=== Калькулятор треугольника ===");
+            Console.WriteLine("Введите длины трех сторон треугольника (каждую с новой строки):");
+            Console.WriteLine("Для выхода введите 'exit'\n");
+            
+            while (true)
+            {
+                Console.Write("Сторона A: ");
+                string sideA = Console.ReadLine();
+                
+                if (sideA?.ToLower() == "exit")
+                    break;
+                
+                Console.Write("Сторона B: ");
+                string sideB = Console.ReadLine();
+                
+                Console.Write("Сторона C: ");
+                string sideC = Console.ReadLine();
+                
+                var result = triangleService.CalculateTriangle(sideA, sideB, sideC);
+                
+                Console.WriteLine($"\nРезультат: {result.Type}");
+                Console.WriteLine("Координаты вершин:");
+                Console.WriteLine($"  A: ({result.Coordinates[0].X}, {result.Coordinates[0].Y})");
+                Console.WriteLine($"  B: ({result.Coordinates[1].X}, {result.Coordinates[1].Y})");
+                Console.WriteLine($"  C: ({result.Coordinates[2].X}, {result.Coordinates[2].Y})");
+                Console.WriteLine();
+            }
+            
+            Console.WriteLine("Программа завершена.");
+        }
+    }
+}
