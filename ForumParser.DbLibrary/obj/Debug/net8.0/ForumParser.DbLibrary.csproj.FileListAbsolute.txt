@@ -1,0 +1,24 @@
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\bin\Debug\net8.0\ForumParser.DbLibrary.deps.json
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\bin\Debug\net8.0\ForumParser.DbLibrary.dll
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\bin\Debug\net8.0\ForumParser.DbLibrary.pdb
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.csproj.AssemblyReference.cache
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.GeneratedMSBuildEditorConfig.editorconfig
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.AssemblyInfoInputs.cache
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.AssemblyInfo.cs
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.csproj.CoreCompileInputs.cache
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.dll
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\refint\ForumParser.DbLibrary.dll
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.pdb
+\\iscsi\profstud\HolikovZA\Desktop\zipkii\Lab4-main\ForumParser.DbLibrary\obj\Debug\net8.0\ref\ForumParser.DbLibrary.dll
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\bin\Debug\net8.0\ForumParser.DbLibrary.deps.json
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\bin\Debug\net8.0\ForumParser.DbLibrary.dll
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\bin\Debug\net8.0\ForumParser.DbLibrary.pdb
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.csproj.AssemblyReference.cache
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.GeneratedMSBuildEditorConfig.editorconfig
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.AssemblyInfoInputs.cache
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.AssemblyInfo.cs
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.csproj.CoreCompileInputs.cache
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.dll
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\refint\ForumParser.DbLibrary.dll
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\ForumParser.DbLibrary.pdb
+\\iscsi\profstud\HolikovZA\Documents\Visual Studio 2022\4labaTest\ForumParser.DbLibrary\obj\Debug\net8.0\ref\ForumParser.DbLibrary.dll
